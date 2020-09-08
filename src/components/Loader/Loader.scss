@@ -1,0 +1,29 @@
+
+  .loader-container {
+      min-height: 100vh;
+      background: darkblue;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  @keyframes spin { 
+    from { 
+        transform: rotate(0deg); 
+    } to { 
+        transform: rotate(360deg); 
+    }
+}
+  .spinner {
+      height: 100px;
+      width: 100px;
+      border-radius: 50%;
+      border: 1px solid white;
+      border-left: none;
+      animation-name: spin;
+      animation-duration: 1000ms;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+  }
+
+ 

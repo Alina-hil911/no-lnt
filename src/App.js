@@ -1,26 +1,45 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import { connect } from 'react-redux';
 
-function App() {
+import { getUsersStart } from './redux/Users/actions';
+import { UserDetail, Home, NotFound } from './pages';
+import { Loader, Footer, Header } from './components'
+import './App.scss';
+import { useMountEffect } from './customHooks/useMountEffect';
+
+function App({ isLoading, getUsersStart }) {
+  useMountEffect(() => getUsersStart() )
+
   return (
+
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isLoading ? <Loader></Loader> :
+        <Router>
+          <>  <Header></Header>
+            <Switch>
+              <Route exact path="/user/:id" children={<UserDetail />} />
+              <Route exact path="/" children={<Home />} />
+              <Route children={<NotFound></NotFound>}></Route>
+            </Switch>
+            <Footer></Footer></>
+        </Router>
+      }
     </div>
   );
-}
+};
 
-export default App;
+const mapStateToProps = state => ({
+  isLoading: state.isLoading
+});
+
+const mapDispatchToProps = dispatch => ({
+  getUsersStart: () => dispatch(getUsersStart())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,0 +1,13 @@
+.not-found {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &__button {
+        background: black;
+        color: white;
+        
+    }
+}

@@ -1,0 +1,27 @@
+.user-detail {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+
+    &__picture {
+        width: 100px;
+    }
+
+    &__info {
+        font-weight: bold;
+    }
+    &__button {
+        cursor: pointer;
+        width: 150px;
+        background: black;
+        color: white;
+        font-weight: bold;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        padding: 10px;
+        
+        }
+}

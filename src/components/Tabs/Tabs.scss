@@ -1,0 +1,43 @@
+.tab{
+    width: 80%;
+    margin: 20px auto;
+    background: darkblue;
+    display: flex;
+    flex-direction: column;
+
+    &__button-container {
+        display: flex;
+        justify-content: flex-start;
+    }
+    &__button {
+        cursor: pointer;
+        background: darkblue;
+        color: white;
+        outline: none;
+        height: 50px;
+        font-weight: bold;
+        transition: .3s ease;
+        border: 3px solid darkblue;
+        
+      
+        &--active {
+            color: darkblue;
+            background: white;
+        }
+
+        &--load {
+            width: 200px;
+            background: black;
+            color: white;
+            border: none;
+        }
+    }
+}
+.tab-content {
+    padding: 10px;
+    border: 2px solid black;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
