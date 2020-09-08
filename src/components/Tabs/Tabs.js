@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 import './Tabs.scss';
 import {checkUser, loadMoreUsersStart, setCurrentUser} from '../../redux/Users/actions';
@@ -11,8 +12,15 @@ const  Tabs = ({users, checkUser, checkedUsers, loadMoreUsersStart, setCurrentUs
     let history = useHistory();
     const [showAllUsers, setShowAllUsers] = useState(true);
     console.log(users);
-    const handleTabChange = () => {
-        setShowAllUsers(!showAllUsers)
+    const handleTabChange = (type) => {
+        if(type === "all" && showAllUsers) {
+            return;
+        }
+        else if(type === "checked" && !showAllUsers) {
+            return;
+        }
+
+         setShowAllUsers(!showAllUsers)
     }
 
     const handleLoadMoreUsers = () => {
@@ -42,14 +50,14 @@ const  Tabs = ({users, checkUser, checkedUsers, loadMoreUsersStart, setCurrentUs
 
     return <div className="tab">
         <div className="tab__button-container">
-            <button onClick={handleTabChange} className={`tab__button ${showAllUsers && 'tab__button--active'}`}>SHOW ALL USERS</button>
-            <button onClick={handleTabChange} className={`tab__button ${!showAllUsers && 'tab__button--active'}`}>SHOW CHECKED USERS</button>
+            <button onClick={()=>handleTabChange('all')} className={`tab__button ${showAllUsers && 'tab__button--active'}`}>SHOW ALL USERS</button>
+            <button onClick={()=>handleTabChange('checked')} className={`tab__button ${!showAllUsers && 'tab__button--active'}`}>SHOW CHECKED USERS</button>
         </div>
         <div className="tab-content">
            {
                showAllUsers ?
-          ( users && users.map(item => <UserCard pic={item.picture.thumbnail} handleShowUserDetails={handleShowUserDetails} handleUserCheck={handleUserCheck} checked={item.checked} lastName={item.name.last} firstName={item.name.first} id={item.id.value}></UserCard>))
-          :   ( checkedUsers && checkedUsers.map(item => <UserCard  pic={item.picture.thumbnail} handleUserCheck={handleUserCheck} checked={item.checked} lastName={item.name.last} firstName={item.name.first} id={item.id.value}></UserCard>))
+          ( users && users.map(item => <UserCard key={uuidv4()}  pic={item.picture.thumbnail} handleShowUserDetails={handleShowUserDetails} handleUserCheck={handleUserCheck} checked={item.checked} lastName={item.name.last} firstName={item.name.first} id={item.id.value}></UserCard>))
+          :   ( checkedUsers && checkedUsers.map(item => <UserCard key={uuidv4()} pic={item.picture.thumbnail} handleUserCheck={handleUserCheck} checked={item.checked} lastName={item.name.last} firstName={item.name.first} id={item.id.value}></UserCard>))
            }
         </div>
         <button onClick={handleLoadMoreUsers} className="tab__button tab__button--load">LOAD 20 MORE USERS</button>
